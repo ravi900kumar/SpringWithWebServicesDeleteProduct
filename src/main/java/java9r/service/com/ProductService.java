@@ -5,10 +5,10 @@ import java9r.entities.com.Product;
  
 
 public interface ProductService {
-	 
-	Product findByName(String name);
 	
-	void insertProduct(Product  product);
-	public boolean isUserExist(Product product);
 	 
+	Product findById(long id);
+  
+	void updateProduct(Product product);
+ 
 }
