@@ -18,8 +18,7 @@ public class ProductDAOiImpl implements  ProductDAO {
 		static{
 			products = productsData();
 		}
- 
- 
+  
 	
 	@Override
 	public Product findById(long id) {
@@ -32,17 +31,20 @@ public class ProductDAOiImpl implements  ProductDAO {
 	}
 	
 	
+	 
+	 
  
-
  
 	@Override
-	public void updateProduct(Product product) {
-		int index = products.indexOf(product);
-		products.set(index, product);
+	public void deleteProductById(long id) {
+		for (Iterator<Product> iterator = products.iterator(); iterator.hasNext(); ) {
+			Product product = iterator.next();
+		    if (product.getId() == id) {
+		        iterator.remove();
+		    }
+		}
 		
 	}
-
- 
 
 	
 	private static List<Product> productsData(){
@@ -58,6 +60,9 @@ public class ProductDAOiImpl implements  ProductDAO {
 	 
 		return products;
 	}
+
+
+	 
 
 
 

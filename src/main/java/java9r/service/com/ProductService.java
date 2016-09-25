@@ -6,9 +6,10 @@ import java9r.entities.com.Product;
 
 public interface ProductService {
 	
-	 
+ 
 	Product findById(long id);
-  
-	void updateProduct(Product product);
+ 
+	void deleteProductById(long id);
+	
  
 }
