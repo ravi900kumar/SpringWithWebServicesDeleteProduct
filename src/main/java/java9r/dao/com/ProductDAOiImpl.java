@@ -1,11 +1,9 @@
 package java9r.dao.com;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
- 
 
-import org.springframework.stereotype.*;
+import org.springframework.stereotype.Repository;
 
 import java9r.entities.com.Product;
 
@@ -19,19 +17,35 @@ public class ProductDAOiImpl implements  ProductDAO {
 			products = productsData();
 		}
  
- 
+	 
+	
 	
 	@Override
-	public Product findById(long id) {
+	public Product findByName(String name) {
 		for(Product product : products){
-			if(product.getId() == id){
+			if(product.getName().equalsIgnoreCase(name)){
 				return product;
 			}
 		}
 		return null;
 	}
 	
-	  
+	@Override
+	public void insertProduct(Product product) {
+		 
+		products.add(product);
+		
+	}
+
+	@Override
+	public boolean isUserExist(Product product) {
+		return findByName(product.getName())!=null;
+	}
+
+
+	 
+ 
+	
 	private static List<Product> productsData(){
 		List<Product> products = new ArrayList<Product>();
 		products.add(new Product(1,"product 1",10, 10000, "product description 1" , "product1.png"));

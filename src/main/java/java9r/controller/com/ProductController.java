@@ -1,13 +1,14 @@
 package java9r.controller.com;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java9r.entities.com.Product;
 import java9r.service.com.ProductService;
@@ -19,15 +20,21 @@ public class ProductController {
 	ProductService productService;  
 	
  
-	@RequestMapping(value = "/all/{id}", method = RequestMethod.GET, produces = MediaType.APPLICATION_JSON_VALUE)
-	public ResponseEntity<Product> getProduct(@PathVariable("id") long id) {
-		System.out.println("Fetching Product with id " + id);
-		Product product = productService.findById(id);
-		if (product == null) {
-			System.out.println("Product with id " + id + " not found");
-			return new ResponseEntity<Product>(HttpStatus.NOT_FOUND);
+	@RequestMapping(value = "/all/", method = RequestMethod.POST)
+	public ResponseEntity<Void> createProduct(@RequestBody Product product, UriComponentsBuilder ucBuilder) {
+		System.out.println("Creating product " + product.getName());
+
+		if (productService.isUserExist(product)) {
+			System.out.println("A Product with name " + product.getName() + " already exist");
+			return new ResponseEntity<Void>(HttpStatus.CONFLICT);
 		}
-		return new ResponseEntity<Product>(product, HttpStatus.OK);
+
+		productService.insertProduct(product);
+
+		HttpHeaders headers = new HttpHeaders();
+		headers.setLocation(ucBuilder.path("/all/{id}").buildAndExpand(product.getId()).toUri());
+		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
- 
+	 
+
 }
