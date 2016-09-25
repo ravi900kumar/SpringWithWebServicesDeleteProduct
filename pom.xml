@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>java9r</groupId>
-  <artifactId>SpringWithWebServicesFindAllProducts</artifactId>
+  <artifactId>SpringWithWebServicesFindOneProduct</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>war</packaging>
 
@@ -173,7 +173,7 @@
  
 
   <build>
-  <finalName>SpringWithWebServicesFindAllProducts</finalName>
+  <finalName>SpringWithWebServicesFindOneProduct</finalName>
  <plugins>
 			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>

@@ -10,7 +10,8 @@ import java9r.entities.com.Product;
 public interface ProductDAO {
 	
 	
-	public List<Product> findAll();
+ 
+	Product findById(long id);
 	 
 
 }
